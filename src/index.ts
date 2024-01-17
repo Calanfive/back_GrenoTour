@@ -10,24 +10,47 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+
+
 const port = process.env.PORT ? parseInt(process.env.PORT as string) : 3000
+const database = process.env.POSTGRES_DB as string
+const username = process.env.POSTGRES_USER as string
+const password = process.env.POSTGRES_PASSWORD
+const host = process.env.POSTGRES_HOST
+const portPostgres = process.env.POSTGRES_PORT ? parseInt(process.env.POSTGRES_PORT as string) : 5432
 
-const sequelize = new Sequelize({
-    dialect: "sqlite",
-    storage: "./db.sqlite",
-  })
-
+const mySequelize = new Sequelize(database, username, password, {
+  host: host,
+  port: portPostgres,
+  dialect: 'postgres',
+  dialectOptions: {
+    ssl: true, // Exemple d'une option spécifique à PostgreSQL (SSL activé)
+    // Autres options spécifiques à PostgreSQL peuvent être ajoutées ici
+  }
+});
 // Conserver mes données
- sequelize.sync()
+mySequelize.sync()
 // Reset des données
-//sequelize.sync({ force: true })
+// mySequelize.sync({ force: true })
+function authentification_test() {
+  try {
+    mySequelize.authenticate();
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+}
+authentification_test()
 
-export const User = UserModel(sequelize);
+
+export const User = UserModel(mySequelize);
+console.log(User === mySequelize.models.utilisateurs); ;
+
 const apiRouter = express.Router();
 apiRouter.use('/auth', authRouter);
 
 app.use("/api", apiRouter);
 
 app.listen(port, () => {
-    console.log('serveur running on port : ' + port);
+  console.log('serveur running on port : ' + port);
 })

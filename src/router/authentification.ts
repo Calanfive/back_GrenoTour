@@ -1,36 +1,45 @@
 import { Router } from "express";
 import bcrypt from "bcrypt";
-import {User} from "..";
+import { User } from "..";
+import "dotenv/config";
 import jwt from "jsonwebtoken";
+import { log } from "console";
 
 export const authRouter = Router();
 
-authRouter.post("/local/register", async(req, res) => {
+authRouter.get("/findUsers", async (req, res) => {
+    const allUsers = await User.findAll();
+    res.send(allUsers.map(user => user.dataValues));
+})
 
-    const{username, password, email} = req.body;
-    const userWithEmail = await User.findOne({ where: { email } });
+
+authRouter.post("/local/register", async (req, res) => {
+
+    const { password, email } = req.body;
+    const userWithEmail = await User.findOne({ where: { mail: email } });
     if (userWithEmail) {
         res.status(400).send("Email already exists");
     }
     else {
         const hashedPassword = await bcrypt.hash(password, parseInt(process.env.SALT_ROUNDS!));
-        const newUser = await User.create({ username, password: hashedPassword, email });
-        delete newUser.dataValues.password;
+        const newUser = await User.create({ mdp: hashedPassword, mail: email });
+        delete newUser.dataValues.mdp;
         res.send(newUser);
     }
-    
+
 });
 
 authRouter.post("/local", async (req, res) => {
     const { identifier, password } = req.body;
-    const userWithEmail = await User.findOne({ where: { email: identifier } });
+    const userWithEmail = await User.findOne({ where: { mail: identifier } });
+
     if (!userWithEmail) {
         res.status(400).send("Email or Password is incorrect");
     }
     else {
-        const isPasswordCorrect = await bcrypt.compare(password, userWithEmail.dataValues.password);
+        const isPasswordCorrect = await bcrypt.compare(password, userWithEmail.dataValues.mdp);
         if (isPasswordCorrect) {
-            delete userWithEmail.dataValues.password;
+            delete userWithEmail.dataValues.mdp;
             const token = jwt.sign(userWithEmail.dataValues, process.env.JWT_SECRET!);
             res.send({
                 token,
