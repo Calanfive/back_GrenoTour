@@ -24,15 +24,6 @@ const password = process.env.POSTGRES_PASSWORD
 const host = process.env.POSTGRES_HOST
 const portPostgres = process.env.POSTGRES_PORT ? parseInt(process.env.POSTGRES_PORT as string) : 5432
 
-// Association des tables
-LieuModel.belongsToMany(CaracteristiquesModel, { through: 'caractlieu'});
-CaracteristiquesModel.belongsToMany(LieuModel, { through: 'caractlieu' });
-LieuModel.belongsToMany(ItineraireModel, { through: 'pointdepassage'});
-ItineraireModel.belongsToMany(LieuModel, { through: 'pointdepassage' });
-ItineraireModel.belongsToMany(UserModel, { through: 'favoris'});
-UserModel.belongsToMany(ItineraireModel, { through: 'favoris'});
-
-
 let mySequelize: Sequelize
 
 if( process.env.NODE_ENV === "production" ){
@@ -56,8 +47,24 @@ else {
   console.log('BDD local/sqlite');
 }
 
-mySequelize
-.sync()
+export const CaractLieu = CaractLieuModel(mySequelize)
+export const Caracteristiques = CaracteristiquesModel(mySequelize)
+export const Favoris = FavorisModel(mySequelize)
+export const Itineraire = ItineraireModel(mySequelize)
+export const Lieu = LieuModel(mySequelize)
+export const PointDePassage = PointDePassageModel(mySequelize)
+export const Pref = PrefModel(mySequelize)
+export const User = UserModel(mySequelize)
+
+// Association des tables
+Lieu.belongsToMany(Caracteristiques, { through: 'caractlieu'});
+Caracteristiques.belongsToMany(Lieu, { through: 'caractlieu' });
+Lieu.belongsToMany(Itineraire, { through: 'pointdepassage'});
+Itineraire.belongsToMany(Lieu, { through: 'pointdepassage' });
+Itineraire.belongsToMany(User, { through: 'favoris'});
+User.belongsToMany(Itineraire, { through: 'favoris'});
+
+mySequelize.sync()
 
 function authentification_test() {
   try {
@@ -68,10 +75,6 @@ function authentification_test() {
   }
 }
 authentification_test()
-
-
-export const User = UserModel(mySequelize);
-console.log(User === mySequelize.models.utilisateurs); ;
 
 const apiRouter = express.Router();
 apiRouter.use('/auth', authRouter);
