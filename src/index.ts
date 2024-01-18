@@ -19,19 +19,32 @@ const password = process.env.POSTGRES_PASSWORD
 const host = process.env.POSTGRES_HOST
 const portPostgres = process.env.POSTGRES_PORT ? parseInt(process.env.POSTGRES_PORT as string) : 5432
 
-const mySequelize = new Sequelize(database, username, password, {
-  host: host,
-  port: portPostgres,
-  dialect: 'postgres',
-  dialectOptions: {
-    ssl: true, // Exemple d'une option spécifique à PostgreSQL (SSL activé)
-    // Autres options spécifiques à PostgreSQL peuvent être ajoutées ici
-  }
-});
-// Conserver mes données
-mySequelize.sync()
-// Reset des données
-// mySequelize.sync({ force: true })
+let mySequelize: Sequelize
+
+if( process.env.NODE_ENV === "production" ){
+  mySequelize = new Sequelize(database, username, password, {
+    host: host,
+    port: portPostgres,
+    dialect: 'postgres',
+    dialectOptions: {
+      ssl: true, // Exemple d'une option spécifique à PostgreSQL (SSL activé)
+      // Autres options spécifiques à PostgreSQL peuvent être ajoutées ici
+    }
+  });
+  console.log('BDD Neon');
+}
+else {
+  mySequelize = new Sequelize({
+    dialect: "sqlite",
+    storage: "./BDD.sqlite",
+  })
+  mySequelize.sync({ force: true })
+  console.log('BDD local/sqlite');
+}
+
+mySequelize
+.sync()
+
 function authentification_test() {
   try {
     mySequelize.authenticate();
