@@ -3,6 +3,13 @@ import 'dotenv/config';
 import cors from "cors";
 import bodyParser from "body-parser";
 import { DataTypes, Sequelize } from "sequelize";
+import { CaractLieuModel } from "./model/Caract_lieu";
+import { CaracteristiquesModel } from "./model/Caracteristiques";
+import { FavorisModel } from "./model/Favoris";
+import { ItineraireModel } from "./model/Itineraire";
+import { LieuModel } from "./model/Lieu";
+import { PointDePassageModel } from "./model/Point_de_passage";
+import { PrefModel } from "./model/Pref";
 import { UserModel } from "./model/User";
 import { authRouter } from "./router/authentification";
 
@@ -16,6 +23,9 @@ const username = process.env.POSTGRES_USER as string
 const password = process.env.POSTGRES_PASSWORD
 const host = process.env.POSTGRES_HOST
 const portPostgres = process.env.POSTGRES_PORT ? parseInt(process.env.POSTGRES_PORT as string) : 5432
+
+// Association des tables
+
 
 let mySequelize: Sequelize
 
