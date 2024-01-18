@@ -5,3 +5,4 @@ export const PrefModel= (sequelize: Sequelize) => {
         langue: DataTypes.STRING
     })
 }
+
