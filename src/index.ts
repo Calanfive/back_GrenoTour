@@ -2,7 +2,7 @@ import express from "express";
 import 'dotenv/config';
 import cors from "cors";
 import bodyParser from "body-parser";
-import { DataTypes, Sequelize } from "sequelize";
+import { DataTypes, Sequelize} from "sequelize";
 import { CaractLieuModel } from "./model/Caract_lieu";
 import { CaracteristiquesModel } from "./model/Caracteristiques";
 import { FavorisModel } from "./model/Favoris";
@@ -25,6 +25,12 @@ const host = process.env.POSTGRES_HOST
 const portPostgres = process.env.POSTGRES_PORT ? parseInt(process.env.POSTGRES_PORT as string) : 5432
 
 // Association des tables
+LieuModel.belongsToMany(CaracteristiquesModel, { through: 'caractlieu'});
+CaracteristiquesModel.belongsToMany(LieuModel, { through: 'caractlieu' });
+LieuModel.belongsToMany(ItineraireModel, { through: 'pointdepassage'});
+ItineraireModel.belongsToMany(LieuModel, { through: 'pointdepassage' });
+ItineraireModel.belongsToMany(UserModel, { through: 'favoris'});
+UserModel.belongsToMany(ItineraireModel, { through: 'favoris'});
 
 
 let mySequelize: Sequelize
