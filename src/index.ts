@@ -36,7 +36,7 @@ else {
     dialect: "sqlite",
     storage: "./BDD.sqlite",
   })
-  mySequelize.sync({ force: true })
+  // mySequelize.sync({ force: true })
   console.log('BDD local/sqlite');
 }
 
