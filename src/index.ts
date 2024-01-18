@@ -10,8 +10,6 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-
-
 const port = process.env.PORT ? parseInt(process.env.PORT as string) : 3000
 const database = process.env.POSTGRES_DB as string
 const username = process.env.POSTGRES_USER as string
