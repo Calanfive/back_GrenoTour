@@ -12,9 +12,6 @@ export const logger = winston.createLogger({
     prettyPrint()
   ),
   transports: [
-    new winston.transports.File({ filename: 'D_winston_log/combined.log' }),
-    new winston.transports.File({ filename: 'D_winston_log/error.log', level: 'error' }),
-    new winston.transports.File({ filename: 'D_winston_log/http.log', level: 'http' }),
-    new winston.transports.File({ filename: 'D_winston_log/debug.log', level: 'debug' }),
+    new winston.transports.File({ filename: 'D_winston_log/combined.log'}),
   ],
 })

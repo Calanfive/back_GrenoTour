@@ -3,4 +3,5 @@ package-lock.json
 dist
 .env
 src/data
+D_winston_log
 BDD.sqlite
