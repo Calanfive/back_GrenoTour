@@ -2,13 +2,10 @@ import express from "express";
 import 'dotenv/config';
 import cors from "cors";
 import bodyParser from "body-parser";
-import { DataTypes, Sequelize} from "sequelize";
-import { CaractLieuModel } from "./model/Caract_lieu";
+import { Sequelize} from "sequelize";
 import { CaracteristiquesModel } from "./model/Caracteristiques";
-import { FavorisModel } from "./model/Favoris";
 import { ItineraireModel } from "./model/Itineraire";
 import { LieuModel } from "./model/Lieu";
-import { PointDePassageModel } from "./model/Point_de_passage";
 import { PrefModel } from "./model/Pref";
 import { UserModel } from "./model/User";
 import { authRouter } from "./router/authentification";
@@ -47,26 +44,26 @@ else {
   console.log('BDD local/sqlite');
 }
 
-export const CaractLieu = CaractLieuModel(mySequelize)
 export const Caracteristiques = CaracteristiquesModel(mySequelize)
-export const Favoris = FavorisModel(mySequelize)
 export const Itineraire = ItineraireModel(mySequelize)
 export const Lieu = LieuModel(mySequelize)
-export const PointDePassage = PointDePassageModel(mySequelize)
 export const Pref = PrefModel(mySequelize)
 export const User = UserModel(mySequelize)
 
 // Association des tables
-Lieu.belongsToMany(Caracteristiques, { through: 'caractlieu'});
-Caracteristiques.belongsToMany(Lieu, { through: 'caractlieu' });
-Lieu.belongsToMany(Itineraire, { through: 'pointdepassage'});
-Itineraire.belongsToMany(Lieu, { through: 'pointdepassage' });
-Itineraire.belongsToMany(User, { through: 'favoris'});
-User.belongsToMany(Itineraire, { through: 'favoris'});
+Lieu.belongsToMany(Caracteristiques, { through: 'caract_lieu', timestamps: false});
+Caracteristiques.belongsToMany(Lieu, { through: 'caract_lieu', timestamps: false});
+Lieu.belongsToMany(Itineraire, { through: 'point_de_passage', timestamps: false});
+Itineraire.belongsToMany(Lieu, { through: 'point_de_passage', timestamps: false});
+Itineraire.belongsToMany(User, { through: 'favoris', timestamps: false});
+User.belongsToMany(Itineraire, { through: 'favoris', timestamps: false});
 User.hasOne(Pref);
 Pref.belongsTo(User);
+Itineraire.hasMany(User, {foreignKey: "itineraire_id"});
+User.belongsTo(Itineraire, {foreignKey: "itineraire_id"});
 
-mySequelize.sync()
+mySequelize.sync({force: true})
+// mySequelize.sync()
 
 function authentification_test() {
   try {
