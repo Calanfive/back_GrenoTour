@@ -9,6 +9,7 @@ import { LieuModel } from "./model/Lieu";
 import { PrefModel } from "./model/Pref";
 import { UserModel } from "./model/User";
 import { authRouter } from "./router/authentification";
+import { winston_log } from "./D_winston/winston";
 
 const app = express();
 app.use(cors());
@@ -20,6 +21,33 @@ const username = process.env.POSTGRES_USER as string
 const password = process.env.POSTGRES_PASSWORD
 const host = process.env.POSTGRES_HOST
 const portPostgres = process.env.POSTGRES_PORT ? parseInt(process.env.POSTGRES_PORT as string) : 5432
+
+winston_log()
+
+// const winston = require('winston');
+
+// const logger = winston.createLogger({
+  //   level: 'info',
+  //   format: winston.format.json(),
+  //   defaultMeta: { service: 'user-service' },
+  //   transports: [
+//     new winston.transports.File({ filename: 'combined.log'}),
+//     new winston.transports.File({ filename: 'error.log', level: 'error' }),
+//     new winston.transports.File({ filename: 'debug.log', level: 'debug' }),
+//   ],
+// });
+
+
+// logger.log({
+  //   level: "debug",
+  //   message: "un bug dans le système",
+  // })
+  // logger.clear()
+  // if (process.env.NODE_ENV !== 'production') {
+    //   logger.add(new winston.transports.Console({
+      //     format: winston.format.simple(),
+      //   }));
+      // }
 
 let mySequelize: Sequelize
 
