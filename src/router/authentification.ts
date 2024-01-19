@@ -3,7 +3,8 @@ import bcrypt from "bcrypt";
 import { User } from "..";
 import "dotenv/config";
 import jwt from "jsonwebtoken";
-import { log } from "console";
+import { logger } from "../D_winston/winston";
+import { info } from "console";
 
 export const authRouter = Router();
 
@@ -24,6 +25,10 @@ authRouter.post("/local/register", async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, parseInt(process.env.SALT_ROUNDS!));
         const newUser = await User.create({ mdp: hashedPassword, mail: email });
         delete newUser.dataValues.mdp;
+        logger.log({
+            level: "http",
+            message: "hello" + newUser // a compléter (newUser)
+        })
         res.send(newUser);
     }
 
@@ -45,6 +50,7 @@ authRouter.post("/local", async (req, res) => {
                 token,
                 ...userWithEmail.dataValues
             });
+
         }
         else {
             res.status(400).send("Email or Password is incorrect");
