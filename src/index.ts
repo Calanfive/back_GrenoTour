@@ -63,6 +63,8 @@ Lieu.belongsToMany(Itineraire, { through: 'pointdepassage'});
 Itineraire.belongsToMany(Lieu, { through: 'pointdepassage' });
 Itineraire.belongsToMany(User, { through: 'favoris'});
 User.belongsToMany(Itineraire, { through: 'favoris'});
+User.hasOne(Pref);
+Pref.belongsTo(User);
 
 mySequelize.sync()
 
