@@ -7,5 +7,5 @@ export const ItineraireModel= (sequelize: Sequelize) => {
         nb_restaurants: DataTypes.INTEGER,
         nb_loisirs: DataTypes.INTEGER,
         nb_bars: DataTypes.INTEGER
-    })
+    }, {timestamps: false});
 }

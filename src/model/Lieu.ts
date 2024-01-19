@@ -9,5 +9,5 @@ export const LieuModel= (sequelize: Sequelize) => {
         telephone: DataTypes.STRING,
         adresse: DataTypes.STRING,
         mail: DataTypes.STRING
-    })
+    }, {timestamps: false});
 }
