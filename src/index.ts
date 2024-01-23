@@ -9,6 +9,7 @@ import { LieuModel } from "./model/Lieu";
 import { PrefModel } from "./model/Pref";
 import { UserModel } from "./model/User";
 import { authRouter } from "./router/authentification";
+import { lieuRouter } from "./router/route.lieu";
 import { logger } from "./D_winston/winston";
 
 const app = express();
@@ -94,6 +95,7 @@ authentification_test()
 
 const apiRouter = express.Router();
 apiRouter.use('/auth', authRouter);
+apiRouter.use('/lieu', lieuRouter);
 
 app.use("/api", apiRouter);
 
