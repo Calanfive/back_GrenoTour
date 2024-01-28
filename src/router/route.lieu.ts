@@ -10,14 +10,13 @@ lieuRouter.get("/findLieux", async(req, res) => {
 })
 
 lieuRouter.post("/register", async(req, res) => {
+    const {nb_visiteurs, nb_visiteurs_mois, nb_etoiles, duree, telephone, adresse, mail} = req.body;
     const lieuToRegister = await Lieu.create({ 
-        nb_visiteurs: 1,
-        nb_visiteurs_mois: 2, 
-        nb_etoiles: 3, 
-        duree: 4, 
-        telephone: 5, 
-        adresse: 6, 
-        mail: 7 
+        nb_visiteurs, 
+        nb_visiteurs_mois, 
+        nb_etoiles, duree, 
+        telephone, adresse, 
+        mail
     });
     res.status(200).send(lieuToRegister)
 })

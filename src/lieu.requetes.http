@@ -5,12 +5,12 @@ POST http://localhost:3000/api/lieu/register
 Content-Type: application/json
 
 {
-    "nb_visiteurs": "123",
-    "nb_visiteurs_mois": "123",
-    "nb_etoiles": "123",
-    "duree": "123",
+    "nb_visiteurs": 123,
+    "nb_visiteurs_mois": 123,
+    "nb_etoiles": 123,
+    "duree": 123,
     "telephone": "123",
     "adresse": "123",
     "mail": "123"
 }
-
+###
