@@ -1,0 +1,33 @@
+name: back_grenotour
+
+on: # specify the build to trigger the automated ci/cd
+  push:
+    branches:
+      - "main"
+      - "develop"
+
+jobs:
+  build:
+    runs-on : ubuntu-latest
+
+    steps: 
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: set up Node.js 20
+        uses: actions/setup-node@v1
+          with: 
+            node-version: 20
+
+      - name: install dependencies
+        run: npm install
+
+      - name: Success Step
+        run: echo 'The triggering workflow passed'
+
+      - name: build docker image
+        run: |
+          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -P ${{ serects.DOCKERHUB_TOKEN}}
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/ci-jsdocker:latest-${{ github.ref_name }}-${{ runner.os }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/ci-jsdocker:latest-${{ github.ref_name }}-${{ runner.os }}
