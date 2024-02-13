@@ -30,5 +30,5 @@ jobs:
       - name: build docker image
         run: |
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN}}
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/back_GrenoTour:latest-${{ github.ref_name }}-${{ runner.os }}
+          docker buildx build -t ${{ secrets.DOCKERHUB_USERNAME }}/back_GrenoTour:latest-${{ github.ref_name }}-${{ runner.os }} .
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/back_GrenoTour:latest-${{ github.ref_name }}-${{ runner.os }}
