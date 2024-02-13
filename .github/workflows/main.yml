@@ -5,6 +5,7 @@ on: # specify the build to trigger the automated ci/cd
     branches:
       - "main"
       - "develop"
+      - "30_asek_creation_du_fichier_yml"
 
 jobs:
   build:
