@@ -28,5 +28,17 @@ export default {
         "react"
     ],
     "rules": {
+        // "semi": "always",
+        // "trailing-commas": "Not Allowed",
+        // "template Strings": "",
+        // "space-before-function-paren": "",
+        // "import/extensions": "",
+        // "object-curly-spacing": "",
+        // "no-console": "",
+        // "no-return-assign": "",
+        // "react/sort-prop-types": "",
+        // "react/sort-types": "",
+        // "object-shorthand": "",
+        // "prefer-destructuring": "",
     }
 }
