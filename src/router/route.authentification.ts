@@ -8,10 +8,10 @@ import { info } from "console";
 
 export const authRouter = Router();
 
-authRouter.get("/findUsers", async (req, res) => {
-    const allUsers = await User.findAll();
-    res.send(allUsers.map(user => user.dataValues));
-})
+// authRouter.get("/findUsers", async (req, res) => {
+//     const allUsers = await User.findAll();
+//     res.send(allUsers.map(user => user.dataValues));
+// })
 
 
 authRouter.post("/register", async (req, res) => {
