@@ -5,8 +5,10 @@ import { TokenBlackList } from "..";
 
 export interface DecodeToken {
     id: number;
-    // username: string;
+    pseudo : string;
     email: string;
+    telephone : string;
+    itineraire_id : number;
     iat: number;
     exp: number;
 }

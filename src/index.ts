@@ -8,7 +8,8 @@ import { ItineraireModel } from "./model/Itineraire";
 import { LieuModel } from "./model/Lieu";
 import { PrefModel } from "./model/Pref";
 import { UserModel } from "./model/User";
-import { authRouter } from "./router/authentification";
+import{TokenBlackListModel} from "./model/TokenBlackList";
+import { authRouter } from "./router/route.authentification";
 import { lieuRouter } from "./router/route.lieu";
 import { logger } from "./D_winston/winston";
 
@@ -67,7 +68,7 @@ export const Itineraire = ItineraireModel(mySequelize)
 export const Lieu = LieuModel(mySequelize)
 export const Pref = PrefModel(mySequelize)
 export const User = UserModel(mySequelize)
-export const TokenBlackList = TokenBlackListModel(sequelize);
+export const TokenBlackList = TokenBlackListModel(mySequelize);
 
 // Association des tables
 Lieu.belongsToMany(Caracteristiques, { through: 'caract_lieu', timestamps: false});
