@@ -14,7 +14,7 @@ authRouter.get("/findUsers", async (req, res) => {
 })
 
 
-authRouter.post("/local/register", async (req, res) => {
+authRouter.post("/register", async (req, res) => {
 
     const { password, email } = req.body;
     const userWithEmail = await User.findOne({ where: { mail: email } });
@@ -34,7 +34,7 @@ authRouter.post("/local/register", async (req, res) => {
 
 });
 
-authRouter.post("/local", async (req, res) => {
+authRouter.post("/", async (req, res) => {
     const { identifier, password } = req.body;
     const userWithEmail = await User.findOne({ where: { mail: identifier } });
 
