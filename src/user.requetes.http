@@ -1,2 +1,17 @@
 GET http://localhost:3000/api/user/me
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicHNldWRvIjpudWxsLCJtYWlsIjoidGhvbWFzbGFmb3JnZUBnbWFpbC5jb20iLCJ0ZWxlcGhvbmUiOm51bGwsIml0aW5lcmFpcmVfaWQiOm51bGwsImlhdCI6MTcxMDI0NzY0NX0._l13J1Z5G3LDP0oMyzbKoG9nzvXRx3zMaSlxzgydhng
+###
+PUT http://localhost:3000/api/user/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicHNldWRvIjpudWxsLCJtYWlsIjoidGhvbWFzbGFmb3JnZUBnbWFpbC5jb20iLCJ0ZWxlcGhvbmUiOm51bGwsIml0aW5lcmFpcmVfaWQiOm51bGwsImlhdCI6MTcxMDI0NzY0NX0._l13J1Z5G3LDP0oMyzbKoG9nzvXRx3zMaSlxzgydhng
+
+
+{
+    "data": {
+        "pseudo": "rosty",
+        "mail": "karim.sekri@gmail.com",
+        "telephone": "0603068646"        
+    }
+}
+
+

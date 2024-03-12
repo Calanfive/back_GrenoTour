@@ -83,8 +83,8 @@ Pref.belongsTo(User);
 Itineraire.hasMany(User, {foreignKey: "itineraire_id"});
 User.belongsTo(Itineraire, {foreignKey: "itineraire_id"});
 
-mySequelize.sync({force: true})
-// mySequelize.sync()
+//mySequelize.sync({force: true})
+ mySequelize.sync()
 
 function authentification_test() {
   try {

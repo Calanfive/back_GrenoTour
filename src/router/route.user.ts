@@ -17,4 +17,15 @@ userRouter.get("/me", checkToken, async (req, res) => {
     }
 });
 
-//put (update)
+
+userRouter.put("/:id", checkToken, async (req, res) => {
+    const { pseudo, mail, telephone, itineraire_id } = req.body.data;
+    const actual = await User.findOne({ where: { id: req.params.id } });
+    if (actual) {
+        const newUser = await actual.update({ pseudo, mail, telephone, itineraire_id });
+        res.json(actual);
+    }
+    else {
+        res.status(404).send("User not found");
+    }
+});
