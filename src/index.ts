@@ -67,6 +67,7 @@ export const Itineraire = ItineraireModel(mySequelize)
 export const Lieu = LieuModel(mySequelize)
 export const Pref = PrefModel(mySequelize)
 export const User = UserModel(mySequelize)
+export const TokenBlackList = TokenBlackListModel(sequelize);
 
 // Association des tables
 Lieu.belongsToMany(Caracteristiques, { through: 'caract_lieu', timestamps: false});
