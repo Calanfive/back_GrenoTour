@@ -11,6 +11,7 @@ import { UserModel } from "./model/User";
 import{TokenBlackListModel} from "./model/TokenBlackList";
 import { authRouter } from "./router/route.authentification";
 import { lieuRouter } from "./router/route.lieu";
+import { userRouter } from "./router/route.user";
 import { logger } from "./D_winston/winston";
 
 const app = express();
@@ -98,6 +99,7 @@ authentification_test()
 const apiRouter = express.Router();
 apiRouter.use('/auth', authRouter);
 apiRouter.use('/lieu', lieuRouter);
+apiRouter.use('/user', userRouter);
 
 app.use("/api", apiRouter);
 
