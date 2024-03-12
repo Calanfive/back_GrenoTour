@@ -1,12 +1,20 @@
 import { Router } from "express";
 import { User} from "..";
-import "dotenv/config";
+import jwt from "jsonwebtoken";
+import { DecodeToken, checkToken } from "../middlewares/checkToken";
 
 export const userRouter = Router();
 
-userRouter.get("/findUserMe", async(req, res) => {
-    const alluser = await User.findAll();
-    res.status(200).send(alluser.map(User => User.dataValues))
-})
+userRouter.get("/me", checkToken, async (req, res) => {
+    const decoded = jwt.decode(req.token!) as DecodeToken
+    const user = await User.findOne({ where: { id: decoded.id } });
+    if (user) {
+        delete user.dataValues.password;
+        res.json(user);
+    }
+    else {
+        res.status(404).send("User not found");
+    }
+});
 
 //put (update)
